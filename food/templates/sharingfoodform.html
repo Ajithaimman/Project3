@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Sharing food</title>
+    <style>
+        .content 
+        {
+            /* position: fixed;
+            bottom: 0; */
+            /* background: rgba(0, 0, 0, 0.5); */
+            color: #f1f1f1;
+            width: 100%;
+            height: 50%;
+            padding: 40px;
+        }
+
+        #myVideo 
+        {
+            position: fixed;
+            left: 100;
+            top: 0;
+            min-width: 80%; 
+            min-height: 100%;
+        }
+        .alignment{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* @media only screen and (min-width: 600px) {
+            button {
+                margin-left: 400px;
+            }
+        } */
+        button{
+            margin-left: 400px;
+        }
+        @media only screen and (max-width: 1000px) {
+            button {
+                margin-left: 300px;
+            }
+        }
+        @media only screen and (max-width: 760px) {
+            button {
+                margin-left: 200px;
+            }
+        }
+        @media only screen and (max-width: 460px) {
+            button {
+                margin-left: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video autoplay muted loop id="myVideo">
+            <source src="{% static 'images/video3.mp4' %}" type="video/mp4">
+        </video>
+
+        <div class="content">
+                <div class="row alignment">
+                    <div class="col">
+                        <h2 class="text-center mb-3">Donate food</h2>
+                        <form onsubmit="return validation()" action="" method="post" style="color:red">
+                            {% csrf_token %}
+                            <div class="form-group div1">
+                              <input type="text" class="form-control" id="fname" placeholder="Enter username" name="fname">
+                              <label id="lab1" style="visibility: hidden;">pls enter username</label>
+                            </div>
+
+                            <div class="form-group div1 mb-5">
+                                <select class="form-control" id="foodtype" name="foodtype">
+                                    <option value="" disabled selected>Select your type of food</option>
+                                    <option value="raw">Raw</option>
+                                    <option value="cooked">Cooked</option>
+                                    <option value="packed">Packed</option>
+                                </select>
+                            </div>
+                        
+                            <div class="form-group div1">
+                              <input type="text" class="form-control" id="foodname" placeholder="Enter food items" name="foodname">
+                              <label id="lab2" style="visibility: hidden;">Pls enter the food detail</label>
+                            </div>
+                        
+                            <div class="form-group div1">
+                              <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile">
+                              <label id="lab3" style="visibility: hidden;">Pls enter valid mobile</label>
+                            </div>
+                        
+                            <div class="form-group div1">
+                              <input type="text" class="form-control" id="location" placeholder="Enter location" name="location">
+                              <label id="lab4" style="visibility: hidden;">Pls enter location</label>
+                            </div>
+                        
+                            <div class="form-group div1">
+                              <input type="text" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity">
+                              <label id="lab5" style="visibility: hidden;">Enter the quantity</label>
+                            </div>
+                        
+                            
+                            <button type="submit" class="btn btn-primary" style="font-size: 20px;">Submit</button>
+                        
+                
+                            {% for msg in messages %}
+                              <strong style="color: green;font-size: 20px; margin-left: 30px;">{{msg}}</strong>
+                            {% endfor %}
+                        
+                        </form>
+                    </div>
+                    
+                </div>
+           
+            
+        </div>
+        
+    </div> 
+
+      <script>
+        function validation()
+        {
+            var username=document.getElementById("username").value;
+
+            if(username){
+                document.getElementById("lab1").style.visibility="hidden";
+                ans1=true;
+
+            }
+            else{
+                document.getElementById("lab1").style.visibility="visible";
+                document.getElementById("lab1").style.color="red";
+                ans1=false;
+            }
+
+            var food=document.getElementById("food").value;
+
+            if(!foodname)
+            {
+                document.getElementById("lab2").style.visibility="visible";
+                document.getElementById("lab2").style.color="red";
+                ans2=false;
+            }
+                
+            
+            else{
+                document.getElementById("lab2").style.visibility="hidden";
+                ans2=true;
+            }
+
+            
+            var mobile=document.getElementById("mobile").value;
+            var regx=/^([7-9]{1}[0-9]{9})$/;
+
+            if(regx.test(mobile)==false){
+                document.getElementById("lab3").style.visibility="visible";
+                document.getElementById("lab3").style.color="red";
+                ans3=false;
+            }
+            else{
+                document.getElementById("lab3").style.visibility="hidden";
+                ans3=true;
+            }
+
+            var location=document.getElementById("location").value;
+
+            if(!location)
+            {
+                document.getElementById("lab4").style.visibility="visible";
+                document.getElementById("lab4").style.color="red";
+                ans4=false;
+            }
+            else{
+                document.getElementById("lab4").style.visibility="hidden";
+                ans4=true;
+            }
+
+            var quantity=document.getElementById("quantity").value;
+
+            if(!quantity)
+            {
+                document.getElementById("lab5").style.visibility="visible";
+                document.getElementById("lab5").style.color="red";
+                ans5=false;
+            }
+            else{
+                document.getElementById("lab5").style.visibility="hidden";
+                ans5=true;
+            }
+
+            
+
+            if(ans1==true && ans2==true && ans3==true && ans4==true && ans5==true ){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        }
+    </script>
+      
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sharing food</title>
+    
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit">Donate</button>
+    
+    </form>
+
+    </div>
+
+     
+</body>
+</html>
